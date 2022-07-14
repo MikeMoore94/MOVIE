@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Movie } from 'movie';
+import { MovieService } from 'movie.service';
 
 @Component({
   selector: 'app-create-movie',
@@ -7,9 +10,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateMovieComponent implements OnInit {
 
-  constructor() { }
+  movie: Movie = new Movie();
+  constructor(private movieService: MovieService, private router: Router) { }
 
   ngOnInit(): void {
   }
+
+  saveMovie(){
+    this.movieService.createMovie(this.movie).subscribe(data => {
+      console.log(data);
+      this.goToMovieList();
+  },
+  error => console.log(error));
+}
+
+goToMovieList(){
+  this.router.navigate(["/movies"]);
+}
+
+onSubmit(){
+  console.log(this.movie);
+  this.saveMovie();
+}
 
 }
