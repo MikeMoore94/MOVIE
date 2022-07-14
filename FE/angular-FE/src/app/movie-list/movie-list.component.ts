@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MovieService } from 'movie.service';
@@ -10,9 +11,12 @@ import { Movie } from '../../../movie';
 })
 export class MovieListComponent implements OnInit {
 
+  searchTerm = '';
+  term = '';
+
   movies: Movie[] = [];
 
-  constructor(private movieService: MovieService, private router: Router) { }
+  constructor(private movieService: MovieService, private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.getMovies();
